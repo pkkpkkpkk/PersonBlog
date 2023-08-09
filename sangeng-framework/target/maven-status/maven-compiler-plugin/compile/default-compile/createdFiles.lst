@@ -1,0 +1,7 @@
+com\sangeng\utils\WebUtils.class
+com\sangeng\utils\JwtUtil.class
+com\sangeng\utils\RedisCache.class
+com\sangeng\config\RedisConfig.class
+com\sangeng\mapper\UserMapper.class
+com\sangeng\domain\entity\User.class
+com\sangeng\config\FastJsonRedisSerializer.class

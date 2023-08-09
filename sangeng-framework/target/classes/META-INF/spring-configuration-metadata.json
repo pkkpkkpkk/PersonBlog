@@ -1,0 +1,27 @@
+{
+  "groups": [
+    {
+      "name": "oss",
+      "type": "com.sangeng.service.impl.OssUploadService",
+      "sourceType": "com.sangeng.service.impl.OssUploadService"
+    }
+  ],
+  "properties": [
+    {
+      "name": "oss.access-key",
+      "type": "java.lang.String",
+      "sourceType": "com.sangeng.service.impl.OssUploadService"
+    },
+    {
+      "name": "oss.bucket",
+      "type": "java.lang.String",
+      "sourceType": "com.sangeng.service.impl.OssUploadService"
+    },
+    {
+      "name": "oss.secret-key",
+      "type": "java.lang.String",
+      "sourceType": "com.sangeng.service.impl.OssUploadService"
+    }
+  ],
+  "hints": []
+}
