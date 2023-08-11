@@ -1,5 +1,4 @@
 package com.sangeng.controller;
-
 import com.sangeng.domain.ResponseResult;
 import com.sangeng.domain.entity.User;
 import com.sangeng.enums.AppHttpCodeEnum;
@@ -12,10 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 @RestController
 public class BlogLoginController {
-
     @Autowired
     private BlogLoginService blogLoginService;
 
@@ -30,10 +27,8 @@ public class BlogLoginController {
         return blogLoginService.login(user);
     }
 
-
     @PostMapping("/logout")
     public ResponseResult logout(){
             return blogLoginService.logout();
     }
-
 }

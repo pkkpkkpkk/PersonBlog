@@ -19,15 +19,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
-
 //    为啥注入的不是实现类呢? 不传实现类是为了符合开闭原则
     @Autowired
-    AuthenticationEntryPoint authenticationEntryPoint;
+    AuthenticationEntryPoint authenticationEntryPoint; //认证成功处理器
     @Autowired
-    AccessDeniedHandler accessDeniedHandler;
+    AccessDeniedHandler accessDeniedHandler; //认证失败处理器
 
     @Bean
-    public PasswordEncoder passwordEncoder(){ //对比密码时 加密方式
+    public PasswordEncoder passwordEncoder(){ //对比密码时 加密方式  要改成BCryptPasswordEncoder()
         return new BCryptPasswordEncoder();
     }
 
@@ -67,6 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean     //暴露ProvideManager方法注入到spring bean容器中
     public AuthenticationManager authenticationManagerBean() throws Exception {
 //        这一段配置用于登录时认证，只有使用了这个配置才能自动注入AuthenticationManager,并使用它来进行用户认证
+//        使用的时候，直接注入此bean对象即可使用  @Autowired  private AuthenticationManager authenticationManager;
         return super.authenticationManagerBean();
     }
 }

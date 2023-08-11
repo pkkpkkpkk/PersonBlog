@@ -21,6 +21,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private UserMapper userMapper;
     @Autowired
     private MenuMapper menuMapper;
+
+    /**
+     * 通过用户名 查找用户
+     * @param username
+     * @return UserDetails 对象
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         //security会使用UserDetailsService实现类中的loadUserByUsername方法进行校验
@@ -31,8 +37,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         //判断是否查到用户  如果没查到抛出异常
         if (Objects.isNull(user)){ throw new RuntimeException("用户不存在"); }
         //返回用户信息    返回的是UserDatails对象，后面才做密码校验   密码SpringSecurity自动校验
+
         //TODO 查询权限信息封装 如果是后台用户才需要查询权限封装 （前台用户不需要查询权限）
-        if (user.getType().equals(SystemConstants.ADMIN)){
+        if (user.getType().equals(SystemConstants.ADMIN)){ //如果是管理员，返回 用户信息+权限信息
             List<String> perms = menuMapper.selectPermsByUserId(user.getId()); //权限列表
             return new LoginUser(user,perms);
         }

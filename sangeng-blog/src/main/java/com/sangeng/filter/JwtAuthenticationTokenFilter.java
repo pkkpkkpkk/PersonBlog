@@ -42,7 +42,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         //解析token 获取userid
         Claims claims = null;
         try {
-            claims = JwtUtil.parseJWT(token);
+            claims = JwtUtil.parseJWT(token); //解析token 得到userId
         } catch (Exception e) {
             e.printStackTrace();
             //token超时，token非法
@@ -62,7 +62,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             return;
         }
 
-        //存入SecurityContextHolder
+        //登录成功，将用户信息loginUser  存入SecurityContextHolder
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser,null,null);//未认证，用两个参数，认证过，用三个参数
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 

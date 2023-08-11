@@ -21,6 +21,8 @@ import com.sangeng.utils.BeanCopyUtils;
 import com.sangeng.utils.SecurityUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -75,7 +77,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public ResponseResult register(User user) {
-
         //对数据进行非空判断   （"" 或者 null）
         if (!StringUtils.hasText(user.getUserName())){
             throw new SystemException(AppHttpCodeEnum.USERNAME_NOT_NULL);
@@ -89,7 +90,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (!StringUtils.hasText(user.getNickName())){
             throw new SystemException(AppHttpCodeEnum.NICKNAME_NOT_NULL);
         }
-
         //对数据进行 是否存在判断 （用户名，邮箱是否已存在）
         if (userNameExist(user.getUserName())){
             throw new SystemException(AppHttpCodeEnum.USERNAME_EXIST);
@@ -97,6 +97,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (emailExist(user.getEmail())){
             throw new SystemException(AppHttpCodeEnum.EMAIL_EXIST);
         }
+
+//        配置类SecurityConfig中 设置加密方式 （不使用默认加密方式）
+//        @Bean
+//        public PasswordEncoder passwordEncoder(){ //对比密码时 加密方式  要改成BCryptPasswordEncoder()
+//            return new BCryptPasswordEncoder();
+//        }
 
         //对密码进行加密
         String encodePassword = passwordEncoder.encode(user.getPassword());//对明文密码 进行加密，得到密文
